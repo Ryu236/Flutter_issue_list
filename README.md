@@ -1,6 +1,6 @@
 # flutter_issue_app
 
-A new Flutter application of Flutter repository.
+This flutter app is a sample app by https://employment.en-japan.com/engineerhub/entry/2019/08/06/103000
 
 ## Getting Started
 
@@ -14,3 +14,7 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## Reference
+
+[Flutter入門 - 簡単なアプリを作ってUI宣言やホットリロードなど便利機能の使い方を理解しよう](https://employment.en-japan.com/engineerhub/entry/2019/08/06/103000)
