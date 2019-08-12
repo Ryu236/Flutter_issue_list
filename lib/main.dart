@@ -28,8 +28,18 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
+class Issue {
+  Issue({
+    this.title,
+    this.avataUrl,
+  });
+
+  final String title;
+  final String avataUrl;
+}
+
 class _MyHomePageState extends State<MyHomePage> {
-  List<String> _titles = <String>[];
+  List<Issue> _issues = <Issue>[];
 
   @override
   void initState() {
@@ -45,7 +55,10 @@ class _MyHomePageState extends State<MyHomePage> {
       final issues = data as List;
       issues.forEach((dynamic element) {
         final issue = element as Map;
-        _titles.add(issue['title'] as String);
+        _issues.add(Issue(
+          title: issue['title'] as String,
+          avataUrl: issue['user']['avatar_url'] as String,
+        ));
       });
     });
   }
@@ -58,12 +71,16 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: ListView.builder(
         itemBuilder: (BuildContext context, int index) {
-          if (index >= _titles.length) {
+          if (index >= _issues.length) {
             return null;
           }
 
+          final issue = _issues[index];
           return ListTile(
-            title: Text(_titles[index]),
+            leading: ClipOval(
+              child: Image.network(issue.avataUrl),
+            ),
+            title: Text(issue.title),
           );
         },
       ),
