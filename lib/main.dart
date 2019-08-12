@@ -29,7 +29,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _data = '';
   List<String> _titles = <String>[];
 
   @override
@@ -48,7 +47,6 @@ class _MyHomePageState extends State<MyHomePage> {
         final issue = element as Map;
         _titles.add(issue['title'] as String);
       });
-      _data = res.body;
     });
   }
 
