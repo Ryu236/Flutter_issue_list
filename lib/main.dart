@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:webview_flutter/webview_flutter.dart';
 
 void main() => runApp(MyApp());
 
@@ -26,16 +28,20 @@ class MyHomePage extends StatefulWidget {
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
+//  @override
+//  _WebViewPageState createWebView() => _WebViewPageState();
 }
 
 class Issue {
   Issue({
     this.title,
     this.avataUrl,
+    this.htmlUrl,
   });
 
   final String title;
   final String avataUrl;
+  final String htmlUrl;
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -58,6 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
         _issues.add(Issue(
           title: issue['title'] as String,
           avataUrl: issue['user']['avatar_url'] as String,
+          htmlUrl: issue['html_url'] as String,
         ));
       });
     });
@@ -80,8 +87,45 @@ class _MyHomePageState extends State<MyHomePage> {
             leading: ClipOval(
               child: Image.network(issue.avataUrl),
             ),
+            onTap: () {
+              print(issue.htmlUrl);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => WebViewPage(url: issue.htmlUrl)),
+              );
+            },
             title: Text(issue.title),
           );
+        },
+      ),
+    );
+  }
+}
+
+class WebViewPage extends StatefulWidget {
+  WebViewPage({Key key, @required this.url}) : super(key: key);
+  final String url;
+
+  @override
+  _WebViewPageState createState() => _WebViewPageState();
+}
+
+class _WebViewPageState extends State<WebViewPage> {
+  final Completer<WebViewController> _controller =
+      Completer<WebViewController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("WebView"),
+      ),
+      body: WebView(
+        initialUrl: (widget.url),
+        javascriptMode: JavascriptMode.unrestricted,
+        onWebViewCreated: (WebViewController webViewController) {
+          print("WebView Created!");
         },
       ),
     );
