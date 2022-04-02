@@ -1,4 +1,4 @@
-# flutter_issue_app
+# flutter-issue-app
 
 This flutter app is a sample app by https://employment.en-japan.com/engineerhub/entry/2019/08/06/103000
 
